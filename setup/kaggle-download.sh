@@ -31,8 +31,11 @@ mkdir valid
 mkdir -p sample/train
 mkdir -p sample/valid
 
+
+ls train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq
 for prefix in `ls train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq` ; do
 	DIR=${prefix}s
+	echo $prefix
 	mkdir train/$DIR sample/train/$DIR
 	mkdir valid/$DIR sample/valid/$DIR
 	echo "mv train/$prefix.*.jpg train/$DIR"

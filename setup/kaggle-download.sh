@@ -4,14 +4,16 @@ if [[ $# -eq 0 ]] ; then
 	exit 1
 fi
 
-PATH=$1
+LOCATION=$1
 
 CV_FACTOR=${2:-0.08}
 SAMPLE_SIZE=${3:-8}
 CV_SAMPLE_SIZE=$((SAMPLE_SIZE/2))
 
-mkdir -p $PATH
-cd $PATH
+echo "Creating $LOCATION"
+
+mkdir -p $LOCATION
+cd $LOCATION
 
 rm test -rf
 rm train -rf

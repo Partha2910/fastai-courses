@@ -15,15 +15,20 @@ echo "Creating $LOCATION"
 mkdir -p $LOCATION
 cd $LOCATION
 
+
+echo "Removing generated dirs"
+
 rm test -rf
 rm train -rf
 rm valid -rf
 rm sample -rf
 
 if [ ! -f train.zip ]; then
+echo "Download dataset"
 kg download
 fi
 
+echo "Extract test & train"
 unzip -q test.zip
 unzip -q train.zip
 
@@ -32,10 +37,13 @@ mkdir -p sample/train
 mkdir -p sample/valid
 
 
+echo "Creating classes"
 ls train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq
+
+
 for prefix in `ls train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq` ; do
 	DIR=${prefix}s
-	echo $prefix
+	echo "Working in $DIR ($prefix)"
 	mkdir train/$DIR sample/train/$DIR
 	mkdir valid/$DIR sample/valid/$DIR
 	echo "mv train/$prefix.*.jpg train/$DIR"

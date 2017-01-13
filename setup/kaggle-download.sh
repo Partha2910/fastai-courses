@@ -28,16 +28,16 @@ mkdir -p sample/train
 mkdir -p sample/valid
 
 for prefix in `ls train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq` ; do
- DIR=${prefix}s
- mkdir train/$DIR sample/train/$DIR
- mkdir valid/$DIR sample/valid/$DIR
- mv "train/$prefix."*".jpg" "train/$DIR"
- TOTAL=`ls train/$DIR | sort -R | wc -l`
- TOPd=`echo "$TOTAL * $CV_FACTOR" | bc`
- TOP=`printf '%.0f' $TOPd`
- ls train/$DIR | sort -R | head -n $TOP | xargs -I@ sh -c "mv train/$DIR/@ valid/$DIR/@" 
- ls train/$DIR | sort -R | head -n $SAMPLE_SIZE | xargs -I@ sh -c "cp train/$DIR/@ sample/train/$DIR/@" 
- ls valid/$DIR | sort -R | head -n $CV_SAMPLE_SIZE | xargs -I@ sh -c "cp valid/$DIR/@ sample/valid/$DIR/@" 
+    DIR=${prefix}s
+    mkdir train/$DIR sample/train/$DIR
+    mkdir valid/$DIR sample/valid/$DIR
+    mv "train/$prefix."*".jpg" "train/$DIR"
+    TOTAL=`ls train/$DIR | sort -R | wc -l`
+    TOPd=`echo "$TOTAL * $CV_FACTOR" | bc`
+    TOP=`printf '%.0f' $TOPd`
+    ls train/$DIR | sort -R | head -n $TOP | xargs -I@ sh -c "mv train/$DIR/@ valid/$DIR/@"
+    ls train/$DIR | sort -R | head -n $SAMPLE_SIZE | xargs -I@ sh -c "cp train/$DIR/@ sample/train/$DIR/@"
+    ls valid/$DIR | sort -R | head -n $CV_SAMPLE_SIZE | xargs -I@ sh -c "cp valid/$DIR/@ sample/valid/$DIR/@"
 done
 
 

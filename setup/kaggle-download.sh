@@ -20,10 +20,12 @@ rm train -rf
 rm valid -rf
 rm sample -rf
 
+if [ ! -f train.zip ]; then
 kg download
+fi
 
-unzip test.zip
-unzip train.zip
+unzip -q test.zip
+unzip -q train.zip
 
 mkdir valid
 mkdir -p sample/train
@@ -33,6 +35,7 @@ for prefix in `ls train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g
 	DIR=${prefix}s
 	mkdir train/$DIR sample/train/$DIR
 	mkdir valid/$DIR sample/valid/$DIR
+	echo "mv train/$prefix.*.jpg train/$DIR"
 	mv "train/$prefix."*".jpg" "train/$DIR"
 	TOTAL=`ls train/$DIR | sort -R | wc -l`
 	TOPd=`echo "$TOTAL * $CV_FACTOR" | bc`

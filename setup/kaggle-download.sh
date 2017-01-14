@@ -40,6 +40,9 @@ mkdir -p sample/valid
 echo "Creating classes"
 ls train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq
 
+for p in `ls $LOCATION/train/*.jpg`; do
+    echo $p
+done
 
 for prefix in `ls $LOCATION/train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq` ; do	
 	if [ ! -z "$prefix" ]; then

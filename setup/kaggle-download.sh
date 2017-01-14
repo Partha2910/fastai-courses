@@ -51,7 +51,7 @@ for prefix in `ls $LOCATION/train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$
 	    mkdir train/$DIR sample/train/$DIR
 	    mkdir valid/$DIR sample/valid/$DIR
 	    mv "train/$prefix."*".jpg" "train/$DIR"
-	    TOTAL=`ls -al train/$DIR  | wc -l`
+	    TOTAL=`find train/$DIR -type f | wc -l`
 	    TOPd=`echo "$TOTAL * $CV_FACTOR" | bc`
 	    TOP=`printf '%.0f' $TOPd`
 	    echo "Moving $TOP from $TOTAL to valid"

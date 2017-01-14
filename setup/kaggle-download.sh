@@ -40,7 +40,7 @@ mkdir -p sample/valid
 echo "Creating classes"
 ls train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq
 
-for p in `ls $LOCATION/train/*.jpg`; do
+for p in `ls $LOCATION/train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}'`; do
     echo $p
 done
 

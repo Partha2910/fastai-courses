@@ -35,14 +35,11 @@ unzip -q train.zip
 mkdir valid
 mkdir -p sample/train
 mkdir -p sample/valid
+mkdir test/unknown
 
 
 echo "Creating classes"
-#ls train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq
-#                 awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}' | uniq
-#for p in `ls $LOCATION/train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\1","g",$1)}'`; do
-#    echo $p
-#done
+
 
 for prefix in `ls $LOCATION/train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$/,"\\\1","g",$1)}' | uniq` ; do
 	if [ ! -z "$prefix" ]; then
@@ -62,18 +59,8 @@ for prefix in `ls $LOCATION/train/*.jpg | awk '{print gensub(/^.*\/([^\.]*)\..*$
 done
 
 
-#ls train/*.jpg | awk '{gsub(/\..*$/,"", $1);print}' | uniq | xargs -d"\n" -I"{}" mkdir {}s
+mv test/*.jpg test/unknown/*.jpg
 
-#ls train/*.jpg | awk '{print $1 " "gensub(/\/([^\.]*)\./,"/\\1s/", "g",$1)}'  | xargs -n2 mv
-#ls train/*.jpg | awk '{gsub(/\..*$/,"", $1);print}' | uniq | xargs -I"{}" sh -c 'mv {}.*.jpg {}s'
-
-#for d in train/* ; do
-#    TOTAL=`ls $d | sort -R | wc -l`
-#    TOPd=`echo "$TOTAL * $SAMPLE_FACTOR" | bc`
-#    TOP=`printf '%.0f' $TOPd`
-#    echo $TOP
-#    ls $d | sort -R | head -n $TOP | xargs
-#done
 
 #rm test.zip
 #rm train.zip 
